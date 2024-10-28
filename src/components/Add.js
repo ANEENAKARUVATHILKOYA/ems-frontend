@@ -3,6 +3,7 @@ import { Button } from 'react-bootstrap';
 import Form from 'react-bootstrap/Form';
 import uuid from 'react-uuid';
 import axios from 'axios';
+import { useNavigate, Link } from 'react-router-dom';
 
 function Add() {
 
@@ -18,6 +19,10 @@ useEffect(()=>{
 },[])
 
 
+//create an object for redirection
+let location=useNavigate()
+
+
    const  addEmployee=async(e)=>{
     e.preventDefault()
     setId(uuid().slice(0,4));
@@ -29,7 +34,11 @@ useEffect(()=>{
   //api creation
   const result= await axios.post("http://localhost:8000/addEmployee",body)
   alert(result.data.message)
+  //navigate to home page
+  location('/')
 }
+
+
 
 
   return (
@@ -77,8 +86,10 @@ useEffect(()=>{
 
     <Button onClick={(e)=>addEmployee(e)}   className='ms-5'  variant='light'>Add</Button>
 
-    <Button className='ms-5'  variant='danger'>Cancel</Button>
-
+  <Link  to={'/'}>
+     <Button className='ms-5'  variant='danger'>Cancel</Button>
+  </Link>
+    
   </Form>
 
     </div>

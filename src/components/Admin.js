@@ -17,11 +17,22 @@ const fetchData=async()=>{
  setEmployees(result.data.employees)
 }
 
+//function for delete
+const handleDelete=async (id)=>{
+  const result=await axios.delete('http://localhost:8000/deleteEmployee/'+id)
+   //console.log(result);
+   alert(result.data.message)
+   //to refresh the table content
+   fetchData()
+}
+
 console.log(allEmployees);
 
 useEffect(()=>{
   fetchData()
 },[])
+
+
 
   return ( 
     <div >
@@ -49,7 +60,7 @@ useEffect(()=>{
    <Table  className='w-75  container border' striped bordered hover variant='dark'>
       <thead>
         <tr> 
-          <th>Employee ID</th>
+          <th>Emp ID</th>
           <th>Name</th>
           <th>Age</th>
           <th>Designation</th>
@@ -72,12 +83,14 @@ useEffect(()=>{
           <Button  className="me-3"  variant="light">
           < i class="fa-solid fa-book-open-reader" /> View
           </Button>
-
+          
+          <Link  to={'edit/' +item.id}>
           <Button className='me-3'  variant="secondary">
              <i class ="fa-solid fa-user-pen"></i> Edit
            </Button>
+          </Link>
 
-          <Button variant='danger'>
+          <Button  onClick={()=>handleDelete(item.id)}    variant='danger'>
           < i class="fa-solid fa-person-circle-minus" /> Delete
           </Button>
           </td>
