@@ -80,9 +80,11 @@ useEffect(()=>{
           <td>{item.designation}</td>
           <td>{item.salary}</td>
           <td>
+          <Link to={'view/' +item.id }>
           <Button  className="me-3"  variant="light">
           < i class="fa-solid fa-book-open-reader" /> View
           </Button>
+          </Link>
           
           <Link  to={'edit/' +item.id}>
           <Button className='me-3'  variant="secondary">
